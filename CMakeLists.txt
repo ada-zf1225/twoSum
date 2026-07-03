@@ -40,6 +40,7 @@ endif()
 if(QT_GUI_FOUND)
   set(CMAKE_AUTOMOC ON)
   add_executable(twoSumGui
+    MACOSX_BUNDLE            # 在 macOS 上产出 .app;其他平台忽略此关键字
     gui/gui_main.cpp
     gui/mainwindow.cpp
     gui/visualizer.cpp
@@ -47,6 +48,14 @@ if(QT_GUI_FOUND)
     gui/visualizer.h
   )
   target_link_libraries(twoSumGui PRIVATE two_sum Qt${QT_VER}::Widgets)
+  if(APPLE)
+    set_target_properties(twoSumGui PROPERTIES
+      MACOSX_BUNDLE_BUNDLE_NAME "TwoSum"
+      MACOSX_BUNDLE_GUI_IDENTIFIER "com.ada-zf1225.twosum"
+      MACOSX_BUNDLE_BUNDLE_VERSION "1.0"
+      MACOSX_BUNDLE_SHORT_VERSION_STRING "1.0"
+    )
+  endif()
   message(STATUS "找到 Qt${QT_VER} -> 将构建 GUI 目标 twoSumGui")
 else()
   message(STATUS "未找到 Qt(或 BUILD_GUI=OFF)-> 跳过 GUI,仅构建 CLI + 测试")

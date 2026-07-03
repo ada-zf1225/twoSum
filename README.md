@@ -76,6 +76,25 @@ ctest --test-dir build -C Release --output-on-failure
 .\build\Release\twoSumGui.exe
 ```
 
+## 在 macOS 上打包成 .app / .dmg
+
+```bash
+# 1) Release 构建(产出 build/twoSumGui.app)
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$(brew --prefix qt)"
+cmake --build build
+
+# 2) 把 Qt 框架打进 bundle,使其自包含
+"$(brew --prefix qt)/bin/macdeployqt" build/twoSumGui.app
+
+# 3) 运行,或打成 dmg 分发
+open build/twoSumGui.app
+"$(brew --prefix qt)/bin/macdeployqt" build/twoSumGui.app -dmg   # 生成 build/twoSumGui.dmg
+```
+
+> **Gatekeeper**:自打的 app 未经苹果签名,别人下载后需右键「打开」,或执行
+> `xattr -cr twoSumGui.app` 清除隔离标记。正式公开分发才需要 Apple 开发者账号做
+> codesign 签名 + notarytool 公证。
+
 ## 算法说明
 
 用哈希表一次遍历。对每个 `nums[i]`,查表里是否已存在搭档 `target - nums[i]`;
