@@ -1,0 +1,6 @@
+# 统一用 LF,跨平台一致(避免 Windows CRLF 污染)
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

@@ -1,0 +1,32 @@
+# 构建产物
+/build/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+*.obj
+*.exe
+*.ilk
+*.pdb
+
+# Visual Studio 缓存/用户文件
+.vs/
+*.user
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# 旧的单文件 Visual Studio 工程(已被 CMake 版取代,不纳入仓库)
+/twoSum/
+*.slnx
+*.sln
+*.vcxproj*
+CMakeSettings.json
+out/
+
+# macOS / 编辑器
+.DS_Store
+.idea/
+*.app
